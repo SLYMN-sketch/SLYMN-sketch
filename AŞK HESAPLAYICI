@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seni Ne Kadar Seviyor?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Poppins:wght@400;700&display=swap');
+
+        body {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 40px;
+            font-family: 'Oswald', sans-serif;
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 40px #ffffff, 0 0 80px #aa00ff;
+            transition: all 1s;
+        }
+        .input-group {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .input-group div {
+            margin: 0 10px;
+        }
+        .input-group label {
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .input {
+            border: none;
+            outline: none;
+            border-radius: 100px;
+            padding: 1em;
+            background-color: #e1e2e3;
+            box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
+            transition: 300ms ease-in-out;
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .input:focus {
+            background-color: #ffffff;
+            transform: scale(1.05);
+            box-shadow: 13px 13px 100px #969696, -13px -13px 100px #ffffff;
+        }
+        .button-33 {
+            font-size: 24px;
+            background-color: #c2fbd7;
+            border-radius: 100px;
+            box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+            color: green;
+            cursor: pointer;
+            display: inline-block;
+            font-family: 'Oswald', sans-serif;
+            padding: 10px 30px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 250ms;
+            border: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            margin-top: 20px;
+        }
+        .button-33:hover {
+            box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+            transform: scale(1.05) rotate(-1deg);
+        }
+        #result {
+            font-size: 24px;
+            margin-top: 20px;
+            padding: 10px 30px;
+            border-radius: 100px;
+            display: inline-block;
+            max-width: 80%;
+            box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+            transition: all 250ms;
+            font-family: 'Poppins', sans-serif;
+        }
+        #result.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        #result.warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        #result.danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        #result.success:hover {
+            background-color: #c3e6cb;
+        }
+        #result.warning:hover {
+            background-color: #ffeeba;
+        }
+        #result.danger:hover {
+            background-color: #f5c6cb;
+        }
+
+        /* Yeni animasyonlar */
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .loading {
+            font-size: 18px;
+            color: #ffffff;
+            animation: blink 1s infinite;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            opacity: 0.5;
+            animation: moveStar 2s linear infinite;
+        }
+
+        @keyframes moveStar {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        .progress-bar {
+            width: 0;
+            height: 20px;
+            background-color: #28a745;
+            border-radius: 100px;
+            transition: width 2s ease;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="stars"></div>
+    <div class="container">
+        <h1>Seni Ne Kadar Seviyor?</h1>
+        <div class="input-group">
+            <div>
+                <label for="name1">İsim 1:</label>
+                <input type="text" id="name1" class="input" placeholder="İsim 1">
+            </div>
+            <div>
+                <label for="name2">İsim 2:</label>
+                <input type="text" id="name2" class="input" placeholder="İsim 2">
+            </div>
+        </div>
+        <button class="button-33" onclick="calculateLove()">Hesapla</button>
+        <div id="loading" class="loading" style="display: none;">Sonuç hesaplanıyor...</div>
+        <div id="result-container">
+            <div class="progress-bar" id="progressBar"></div>
+            <p id="result"></p>
+        </div>
+    </div>
+    <script>
+        // JavaScript kodu aynı kalacak
+        function createStars() {
+            const starCount = 100;
+            const stars = document.getElementById('stars');
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${Math.random() * 2 + 2}s`;
+                star.style.opacity = Math.random();
+                stars.appendChild(star);
+            }
+        }
+
+        createStars();
+
+        function calculateLove() {
+            const name1 = document.getElementById('name1').value.trim().toLowerCase();
+            const name2 = document.getElementById('name2').value.trim().toLowerCase();
+            const resultElement = document.getElementById('result');
+            const loadingElement = document.getElementById('loading');
+            const progressBar = document.getElementById('progressBar');
+
+            if (name1 === '' || name2 === '') {
+                resultElement.innerText = 'Lütfen iki ismi de girin.';
+                resultElement.className = 'danger';
+                return;
+            }
+
+            // Sonuç hesaplanmadan önce bekleme süresini simüle et
+            loadingElement.style.display = 'block';
+            resultElement.innerText = '';
+            progressBar.style.width = '0';
+
+            
+            setTimeout(() => {
+                const uniqueChars1 = new Set(name1);
+                const uniqueChars2 = new Set(name2);
+                const commonChars = [...uniqueChars1].filter(char => uniqueChars2.has(char));
+                const similarityRatio = (commonChars.length * 2) / (name1.length + name2.length);
+                const lovePercentage = Math.floor(similarityRatio * 100);
+
+                let message = '';
+
+                if (lovePercentage === 100) {
+                    message = `${name1.charAt(0).toUpperCase() + name1.slice(1)} ve ${name2.charAt(0).toUpperCase() + name2.slice(1)} birbirinize aşıksınız! ❤️`;
+                    resultElement.className = 'success';
+                } else if (lovePercentage >= 90) {
+                    message = `${name1.charAt(0).toUpperCase() + name1.slice(1)} ve ${name2.charAt(0).toUpperCase() + name2.slice(1)} aranızda muhteşem bir bağ var! 🌟`;
+                    resultElement.className = 'success';
+                } else if (lovePercentage >= 80) {
+                    message = `${name1.charAt(0).toUpperCase() + name1.slice(1)} ve ${name2.charAt(0).toUpperCase() + name2.slice(1)} harika bir çift olabilirsiniz. 😊`;
+                    resultElement.className = 'success';
+                } else if (lovePercentage >= 70) {
+                    message = `${name1.charAt(0).toUpperCase() + name1.slice(1)} ve ${name2.charAt(0).toUpperCase() + name2.slice(1)} ile güzel bir uyum yakalayabilirsiniz. 👍`;
+                    resultElement.className = 'warning';
+                } else if (lovePercentage >= 60) {
+                    message = `${name1.charAt(0).toUpperCase() + name1.slice(1)} ve ${name2.charAt(0).toUpperCase() + name2.slice(1)} ile arkadaşlık harika olabilir. 👋`;
+                    resultElement.className = 'warning';
+                } else if (lovePercentage >= 50) {
+                    message = `${name1.charAt(0).toUpperCase() + name1.slice(1)} ve ${name2.charAt(0).toUpperCase() + name2.slice(1)} ile güzel vakit geçirebilirsiniz. 😄`;
+                    resultElement.className = 'warning';
+                } else if (lovePercentage >= 40) {
+                    message = `${name1.charAt(0).toUpperCase() + name1.slice(1)} ve ${name2.charAt(0).toUpperCase() + name2.slice(1)} ile daha fazla zaman geçirmeye çalışın. 🤔`;
+                    resultElement.className = 'danger';
+                } else if (lovePercentage >= 30) {
+                    message = `${name1.charAt(0).toUpperCase() + name1.slice(1)} ve ${name2.charAt(0).toUpperCase() + name2.slice(1)} için işler zor olabilir. 😕`;
+                    resultElement.className = 'danger';
+                } else if (lovePercentage >= 10) {
+                    message = `${name1.charAt(0).toUpperCase() + name1.slice(1)} ve ${name2.charAt(0).toUpperCase() + name2.slice(1)} arasında pek uyum yok. 😟`;
+                    resultElement.className = 'danger';
+                } else {
+                    message = `${name1.charAt(0).toUpperCase() + name1.slice(1)} ve ${name2.charAt(0).toUpperCase() + name2.slice(1)} birbirinize uygun değilsiniz. 💔`;
+                    resultElement.className = 'danger';
+                }
+
+                loadingElement.style.display = 'none';
+                progressBar.style.width = `${lovePercentage}%`;
+                resultElement.innerHTML = `Sevgi Yüzdesi: ${lovePercentage}%<br>${message}`;
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
